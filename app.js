@@ -124,7 +124,8 @@ function init() {
     skill: PA.SKILL_LEVELS.indexOf(storage.get('pa.skill', 'beginner')) !== -1
       ? storage.get('pa.skill', 'beginner') : 'beginner',
     history: PA.emptyHistory(),
-    roll: null
+    roll: null,
+    timer: { preset: 15, remaining: 15 * 60, running: false, intervalId: null }
   };
   // Restore history defensively; replace with empty if shape is wrong.
   const savedHistory = storage.get('pa.history', null);
@@ -135,6 +136,10 @@ function init() {
   const cardsEl = document.getElementById('cards');
   const rerollBtn = document.getElementById('reroll');
   const skillBtns = Array.prototype.slice.call(document.querySelectorAll('.skill-btn'));
+  const timerDisplay = document.getElementById('timer-display');
+  const startBtn = document.getElementById('timer-start');
+  const resetBtn = document.getElementById('timer-reset');
+  const presetBtns = Array.prototype.slice.call(document.querySelectorAll('.preset-btn'));
 
   function persist() {
     storage.set('pa.skill', state.skill);
@@ -182,6 +187,81 @@ function init() {
     }
   }
 
+  function applyPreset(minutes) {
+    pauseTimer();
+    state.timer.preset = minutes;
+    state.timer.remaining = minutes * 60;
+    state.timer.running = false;
+    renderTimer();
+  }
+
+  function startTimer() {
+    if (state.timer.preset === 0) return;            // Free draw has no clock
+    if (state.timer.running) { pauseTimer(); return; } // toggle to pause
+    if (PA.isFinished(state.timer.remaining)) {
+      state.timer.remaining = state.timer.preset * 60; // restart if finished
+    }
+    state.timer.running = true;
+    state.timer.intervalId = setInterval(onTick, 1000);
+    renderTimer();
+  }
+
+  function pauseTimer() {
+    state.timer.running = false;
+    if (state.timer.intervalId) {
+      clearInterval(state.timer.intervalId);
+      state.timer.intervalId = null;
+    }
+    renderTimer();
+  }
+
+  function resetTimer() {
+    pauseTimer();
+    state.timer.remaining = state.timer.preset * 60;
+    renderTimer();
+  }
+
+  function onTick() {
+    state.timer.remaining = PA.tick(state.timer.remaining);
+    if (PA.isFinished(state.timer.remaining)) {
+      pauseTimer();
+      playChime();
+    }
+    renderTimer();
+  }
+
+  function renderTimer() {
+    const free = state.timer.preset === 0;
+    timerDisplay.textContent = free ? 'Free draw' : PA.formatTime(state.timer.remaining);
+    timerDisplay.classList.toggle('finished', !free && PA.isFinished(state.timer.remaining));
+    startBtn.disabled = free;
+    resetBtn.disabled = free;
+    startBtn.textContent = state.timer.running ? 'Pause' : 'Start';
+    for (const btn of presetBtns) {
+      btn.classList.toggle('active', Number(btn.dataset.minutes) === state.timer.preset);
+    }
+  }
+
+  function playChime() {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      const ctx = new Ctx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = 660;
+      const now = ctx.currentTime;
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+      osc.start(now);
+      osc.stop(now + 0.8);
+    } catch (e) { /* ignore */ }
+  }
+
   for (const btn of skillBtns) {
     btn.addEventListener('click', function () {
       state.skill = btn.dataset.skill;
@@ -190,6 +270,16 @@ function init() {
     });
   }
   rerollBtn.addEventListener('click', doRoll);
+
+  for (const btn of presetBtns) {
+    btn.addEventListener('click', function () {
+      applyPreset(Number(btn.dataset.minutes));
+    });
+  }
+  startBtn.addEventListener('click', startTimer);
+  resetBtn.addEventListener('click', resetTimer);
+
+  applyPreset(state.timer.preset); // render the initial 15:00 and highlight the 15 preset
 
   doRoll(); // auto-roll on load — never show a blank screen
 }
