@@ -116,6 +116,7 @@ if (typeof document !== 'undefined') {
 }
 
 function init() {
+  if (!document.getElementById('cards')) return; // no app DOM (e.g. test.html) — engine globals only
   const storage = PA.makeStorage();
   const CATS = ['building', 'perspective', 'placement'];
   const LABELS = { building: 'Building', perspective: 'Perspective', placement: 'Placement' };
