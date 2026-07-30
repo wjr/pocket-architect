@@ -57,6 +57,21 @@ const PA = {
     return history;
   },
 
+  formatTime(totalSeconds) {
+    const s = Math.max(0, Math.floor(totalSeconds));
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ':' + String(sec).padStart(2, '0');
+  },
+
+  tick(totalSeconds) {
+    return Math.max(0, totalSeconds - 1);
+  },
+
+  isFinished(totalSeconds) {
+    return totalSeconds <= 0;
+  },
+
   makeStorage(backing) {
     let store;
     if (backing) {

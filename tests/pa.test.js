@@ -142,6 +142,17 @@ function runAllTests(PA, DATA) {
   catch (e) { threw = true; }
   check('storage never throws on blocked backing', threw === false);
 
+  // --- timer helpers ---
+  eq('formatTime 15 minutes', PA.formatTime(900), '15:00');
+  eq('formatTime 45 seconds', PA.formatTime(45), '0:45');
+  eq('formatTime zero', PA.formatTime(0), '0:00');
+  eq('formatTime clamps negative', PA.formatTime(-5), '0:00');
+  eq('tick decrements', PA.tick(60), 59);
+  eq('tick clamps at zero', PA.tick(0), 0);
+  check('isFinished at zero', PA.isFinished(0) === true);
+  check('isFinished negative', PA.isFinished(-1) === true);
+  check('not finished when positive', PA.isFinished(1) === false);
+
   return results;
 }
 
