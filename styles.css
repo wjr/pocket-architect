@@ -1,48 +1,128 @@
+/* =========================================================================
+   Pocket Architect — "vellum drafting sheet"
+   Self-hosted Fraunces (variable serif) + IBM Plex Mono. 100% offline.
+   ========================================================================= */
+
+/* ---- Self-hosted fonts (latin subset, committed locally) ---- */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-var-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-var-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/ibm-plex-mono-600.woff2') format('woff2');
+}
+
+/* ---- Tokens ---- */
 :root {
-  --paper: #f7f4ec;
-  --ink: #1a1a1a;
-  --accent: #2b5fa0;
-  --card: #fffdf7;
-  --rule: rgba(40, 70, 120, 0.18);
+  --paper: #f1ebdc;
+  --card: #fbf7ee;
+  --ink: #17140d;
+  --ink-soft: #5c544a;
+  --accent: #1f4f8f;
+  --rule: rgba(23, 20, 13, 0.14);
+  --grid-minor: rgba(31, 79, 143, 0.045);
+  --grid-major: rgba(31, 79, 143, 0.085);
+
+  --font-serif: 'Fraunces', Georgia, "Times New Roman", serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 * { box-sizing: border-box; }
 
+/* ---- Paper: graph grid (major + minor) ---- */
 html, body {
   margin: 0;
   padding: 0;
   background-color: var(--paper);
   background-image:
-    linear-gradient(rgba(40, 70, 120, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(40, 70, 120, 0.06) 1px, transparent 1px);
-  background-size: 24px 24px;
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+  background-size: 18px 18px, 18px 18px, 90px 90px, 90px 90px;
+  background-position: -1px -1px;
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.4;
+  font-family: var(--font-mono);
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ---- Paper: grain ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+/* ---- Paper: faint vignette for sheet depth ---- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 56%, rgba(23, 20, 13, 0.05) 100%);
+}
+
+/* ---- Layout ---- */
 .pa {
-  max-width: 760px;
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 28px 20px 48px;
+  padding: 40px 22px 56px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 30px;
 }
 
+/* ---- Title block ---- */
 .pa-title {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   margin: 0;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
   text-align: center;
+  color: var(--ink);
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--rule);
-  padding-bottom: 14px;
 }
 
-/* Skill selector */
+/* ---- Skill selector ---- */
 .skill {
   display: flex;
   gap: 8px;
@@ -50,25 +130,31 @@ html, body {
 }
 .skill-btn {
   flex: 1;
-  padding: 9px 6px;
-  font-size: 0.9rem;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 11px 8px;
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .1s ease;
 }
-.skill-btn:hover { background: rgba(43, 95, 160, 0.06); }
+.skill-btn:hover {
+  background: rgba(31, 79, 143, 0.06);
+  border-color: rgba(31, 79, 143, 0.3);
+}
+.skill-btn:active { transform: scale(0.97); }
 .skill-btn.active {
   background: var(--accent);
-  color: #fff;
+  color: var(--card);
   border-color: var(--accent);
 }
 
-/* Constraint cards */
+/* ---- Constraint cards ---- */
 .cards {
   display: flex;
   flex-direction: column;
@@ -77,103 +163,182 @@ html, body {
 .card {
   background: var(--card);
   border: 1px solid var(--rule);
-  border-left: 4px solid var(--accent);
-  border-radius: 4px;
-  padding: 14px 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  padding: 16px 18px;
+  transition: transform .18s var(--ease), border-color .18s ease, box-shadow .18s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(31, 79, 143, 0.32);
+  box-shadow: 0 6px 20px rgba(23, 20, 13, 0.07);
 }
 .card-label {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--accent);
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--accent);
 }
 .card-value {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.7rem;
-  margin: 2px 0 6px;
+  margin: 4px 0 8px;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 2.6vw + 0.95rem, 2.05rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 .card-tip {
-  font-size: 0.92rem;
-  color: #4a4a4a;
+  font-family: var(--font-serif);
   font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
 }
 
-/* Timer */
+/* ---- Timer ---- */
 .timer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding-top: 4px;
+  gap: 13px;
 }
 .timer-presets {
   display: flex;
   gap: 8px;
 }
 .preset-btn {
-  min-width: 52px;
-  padding: 8px 10px;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  min-width: 54px;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.84rem;
+  padding: 9px 12px;
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
 }
-.preset-btn:hover { background: rgba(43, 95, 160, 0.06); }
+.preset-btn:hover {
+  background: rgba(31, 79, 143, 0.06);
+  border-color: rgba(31, 79, 143, 0.3);
+}
+.preset-btn:active { transform: scale(0.97); }
 .preset-btn.active {
   border-color: var(--accent);
   color: var(--accent);
   font-weight: 600;
 }
 .timer-display {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 2.6rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5vw + 1rem, 2.9rem);
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
 }
 .timer-display.finished {
   color: var(--accent);
-  animation: pulse 1s ease-in-out infinite;
+  animation: pulse 1.4s ease-in-out infinite;
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.45; }
+  50% { opacity: 0.4; }
 }
 .timer-controls {
   display: flex;
   gap: 8px;
 }
 .timer-controls button {
-  padding: 8px 18px;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 9px 20px;
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, transform .1s ease;
 }
-.timer-controls button:hover:not(:disabled) { background: rgba(43, 95, 160, 0.06); }
-.timer-controls button:disabled { opacity: 0.4; cursor: default; }
+.timer-controls button:hover:not(:disabled) {
+  background: rgba(31, 79, 143, 0.06);
+  border-color: rgba(31, 79, 143, 0.3);
+}
+.timer-controls button:active:not(:disabled) { transform: scale(0.97); }
+.timer-controls button:disabled { opacity: 0.35; cursor: default; }
 
-/* Reroll */
+/* ---- Reroll ---- */
 .reroll {
-  margin-top: 4px;
-  padding: 14px;
-  font-size: 1.05rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  padding: 15px;
   background: var(--accent);
-  color: #fff;
+  color: var(--card);
   border: none;
-  border-radius: 6px;
+  border-radius: 2px;
   cursor: pointer;
+  transition: filter .15s ease, transform .1s ease;
 }
-.reroll:hover { filter: brightness(1.05); }
+.reroll:hover { filter: brightness(1.07); }
+.reroll:active { transform: scale(0.985); }
 
-/* Wider screens: cards in a row */
+/* ---- Focus ring (a11y) ---- */
+.skill-btn:focus-visible,
+.preset-btn:focus-visible,
+.timer-controls button:focus-visible,
+.reroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Responsive ---- */
 @media (min-width: 640px) {
   .cards { flex-direction: row; }
   .card { flex: 1; }
+}
+
+@media (max-width: 420px) {
+  .pa { padding: 28px 16px 44px; gap: 26px; }
+  .pa-title { font-size: 0.95rem; letter-spacing: 0.18em; }
+  .skill-btn { font-size: 0.68rem; letter-spacing: 0.05em; }
+  .card { padding: 14px 15px; }
+}
+
+/* ---- Motion: orchestrated load reveal + per-reroll card entrance ----
+   Base state is fully visible; rise only applies when motion is allowed,
+   so reduced-motion users see everything with no transform. */
+@keyframes pa-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pa > *:not(.cards) { animation: pa-rise 0.5s var(--ease) both; }
+  .pa > *:nth-child(1) { animation-delay: 0.02s; } /* title   */
+  .pa > *:nth-child(2) { animation-delay: 0.08s; } /* skill   */
+  .pa > *:nth-child(4) { animation-delay: 0.32s; } /* timer   */
+  .pa > *:nth-child(5) { animation-delay: 0.40s; } /* reroll  */
+
+  .card { animation: pa-rise 0.42s var(--ease) both; }
+  .card:nth-child(1) { animation-delay: 0.14s; }
+  .card:nth-child(2) { animation-delay: 0.20s; }
+  .card:nth-child(3) { animation-delay: 0.26s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
