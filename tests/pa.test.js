@@ -6,7 +6,71 @@ function runAllTests(PA, DATA) {
     const pass = JSON.stringify(actual) === JSON.stringify(expected);
     results.push({ name: name + ' (got ' + JSON.stringify(actual) + ')', pass });
   }
-  // Tests are added in later tasks.
+  // --- isWellFormed ---
+  check('well-formed entry', PA.isWellFormed({ label: 'Cathedral', difficulty: 'hard' }));
+  check('well-formed entry with tip', PA.isWellFormed({ label: 'Shed', difficulty: 'easy', tip: 'x' }));
+  check('rejects empty label', PA.isWellFormed({ label: '', difficulty: 'easy' }) === false);
+  check('rejects bad difficulty', PA.isWellFormed({ label: 'X', difficulty: 'spicy' }) === false);
+  check('rejects null', PA.isWellFormed(null) === false);
+
+  // --- allowedDifficulties ---
+  eq('beginner allows easy only', PA.allowedDifficulties('beginner'), ['easy']);
+  eq('intermediate allows easy+medium', PA.allowedDifficulties('intermediate'), ['easy', 'medium']);
+  eq('advanced allows all', PA.allowedDifficulties('advanced'), ['easy', 'medium', 'hard']);
+  eq('unknown skill allows none', PA.allowedDifficulties('nosuch'), []);
+
+  // --- fixtures for eligibility / rolling ---
+  const FIXTURE = {
+    building: [
+      { label: 'Shed', difficulty: 'easy' },
+      { label: 'Library', difficulty: 'medium' },
+      { label: 'Cathedral', difficulty: 'hard' }
+    ],
+    placement: [
+      { label: 'Flat field', difficulty: 'easy' },
+      { label: 'Cliffside', difficulty: 'hard' }
+    ],
+    perspective: [
+      { label: 'Elevation', difficulty: 'easy' },
+      { label: 'Two-point', difficulty: 'medium' }
+    ]
+  };
+
+  // --- eligiblePool ---
+  eq('beginner pool excludes medium/hard',
+    PA.eligiblePool('building', 'beginner', {}, FIXTURE), [{ label: 'Shed', difficulty: 'easy' }]);
+  eq('intermediate pool excludes hard',
+    PA.eligiblePool('building', 'intermediate', {}, FIXTURE),
+    [{ label: 'Shed', difficulty: 'easy' }, { label: 'Library', difficulty: 'medium' }]);
+  eq('history excludes a recent label',
+    PA.eligiblePool('building', 'advanced', { building: ['Shed'] }, FIXTURE),
+    [{ label: 'Library', difficulty: 'medium' }, { label: 'Cathedral', difficulty: 'hard' }]);
+  eq('safety valve ignores history when pool would be empty',
+    PA.eligiblePool('building', 'beginner', { building: ['Shed'] }, FIXTURE),
+    [{ label: 'Shed', difficulty: 'easy' }]);
+  eq('unknown category yields empty pool', PA.eligiblePool('nosuch', 'advanced', {}, FIXTURE), []);
+
+  // --- rollOne ---
+  const seq = (function () { let i = 0; return function () { return (i++ % 10) / 10; }; })();
+  eq('rollOne picks index 0 with rng()=0', PA.rollOne([{ label: 'A' }, { label: 'B' }], function () { return 0; }), { label: 'A' });
+  check('rollOne returns null on empty pool', PA.rollOne([], function () { return 0; }) === null);
+
+  // --- rollAll (deterministic via injected rng) ---
+  const roll = PA.rollAll('beginner', {}, FIXTURE, function () { return 0; });
+  check('rollAll returns Shed for beginner (index 0)', roll.building.label === 'Shed');
+  check('rollAll returns Flat field for beginner', roll.placement.label === 'Flat field');
+  check('rollAll returns Elevation for beginner', roll.perspective.label === 'Elevation');
+
+  // --- rollAll difficulty guarantee (probabilistic, many runs) ---
+  let violation = false;
+  for (let i = 0; i < 200; i++) {
+    const r = PA.rollAll('beginner', {}, FIXTURE);
+    for (const cat of ['building', 'placement', 'perspective']) {
+      if (r[cat] && r[cat].difficulty !== 'easy') violation = true;
+    }
+  }
+  check('beginner never rolls non-easy over 200 runs', violation === false);
+
   return results;
 }
 
