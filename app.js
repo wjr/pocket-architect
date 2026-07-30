@@ -17,6 +17,18 @@ const PA = {
       && DIFFICULTIES.indexOf(entry.difficulty) !== -1;
   },
 
+  validateData(data) {
+    const out = {};
+    for (const cat of ['building', 'placement', 'perspective']) {
+      out[cat] = (data[cat] || []).filter((e) => {
+        if (PA.isWellFormed(e)) return true;
+        console.warn('[Pocket Architect] skipping malformed entry:', e);
+        return false;
+      });
+    }
+    return out;
+  },
+
   allowedDifficulties(skill) {
     if (skill === 'beginner') return ['easy'];
     if (skill === 'intermediate') return ['easy', 'medium'];
@@ -128,6 +140,7 @@ function init() {
     roll: null,
     timer: { preset: 15, remaining: 15 * 60, running: false, intervalId: null }
   };
+  const data = PA.validateData(window.DATA); // validated once: drop malformed entries with a warn
   // Restore history defensively; replace with empty if shape is wrong.
   const savedHistory = storage.get('pa.history', null);
   if (savedHistory && savedHistory.building && savedHistory.placement && savedHistory.perspective) {
@@ -148,7 +161,7 @@ function init() {
   }
 
   function doRoll() {
-    state.roll = PA.rollAll(state.skill, state.history, window.DATA);
+    state.roll = PA.rollAll(state.skill, state.history, data);
     for (const cat of CATS) {
       if (state.roll[cat]) {
         PA.pushHistory(state.history, cat, state.roll[cat].label, ANTI_REPEAT_LIMIT);

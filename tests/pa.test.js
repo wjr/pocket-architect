@@ -13,6 +13,29 @@ function runAllTests(PA, DATA) {
   check('rejects bad difficulty', PA.isWellFormed({ label: 'X', difficulty: 'spicy' }) === false);
   check('rejects null', PA.isWellFormed(null) === false);
 
+  // --- validateData ---
+  const VD = {
+    building: [
+      { label: 'Shed', difficulty: 'easy' },
+      { difficulty: 'hard' } // malformed: no label
+    ],
+    placement: [{ label: 'Cliff', difficulty: 'hard' }],
+    perspective: []
+  };
+  const validated = PA.validateData(VD);
+  eq('validateData keeps well-formed entry',
+    validated.building, [{ label: 'Shed', difficulty: 'easy' }]);
+  check('validateData excludes malformed entry',
+    validated.building.length === 1 && validated.building[0].label === 'Shed');
+  check('validateData preserves other categories',
+    validated.placement.length === 1 && validated.perspective.length === 0);
+  check('validateData does not mutate input', VD.building.length === 2);
+  let warned = false;
+  const origWarn = console.warn;
+  console.warn = function () { warned = true; };
+  try { PA.validateData(VD); } finally { console.warn = origWarn; }
+  check('validateData warns about rejected entry', warned === true);
+
   // --- allowedDifficulties ---
   eq('beginner allows easy only', PA.allowedDifficulties('beginner'), ['easy']);
   eq('intermediate allows easy+medium', PA.allowedDifficulties('intermediate'), ['easy', 'medium']);
