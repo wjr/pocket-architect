@@ -90,7 +90,7 @@ A single `DATA` object with three arrays. Each value is a plain object:
 - **Intermediate** rolls `easy` + `medium`.
 - **Advanced** rolls everything.
 
-**Anti-repeat:** the last ~6 rolls per category are remembered (in `localStorage`, with
+**Anti-repeat:** the last 6 rolls per category are remembered (in `localStorage`, with
 the in-memory fallback). The next roll excludes them. Safety valve: if excluding recent
 rolls would drop a category's eligible pool below 1, the exclusion is ignored so a roll
 never fails.
