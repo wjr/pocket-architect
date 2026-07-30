@@ -1,7 +1,7 @@
 # Pocket Architect — Design Elevation (minimal · raw · crafted)
 
 **Date:** 2026-07-31
-**Status:** Approved (pending implementation)
+**Status:** Implemented & verified (2026-07-31)
 
 ## Context
 Pocket Architect is built and merged to `master`; it works and is verified. Its aesthetic *direction* is sound (warm paper, graph grid, ink, blueprint-blue, serif values + mono chrome) but it currently reads **generic** in the spots that matter most: all-system-fonts typography (Georgia / Roboto / `ui-monospace` — the exact defaults to avoid), a graph grid so faint it looks flat, zero tactility, and a plain centered-column form layout.
@@ -71,3 +71,26 @@ Refine, don't rebuild. Keep every existing class/ID (consumed by `app.js` + `ind
    - `.timer-display.finished` pulse; Free-draw disables controls; ≤360px layout holds.
 3. Emulate `prefers-reduced-motion: reduce` → motion off, all content visible.
 4. Mobile widths (320–480px) snapshot — cards stack, type scales, no overflow.
+
+## Outcome
+Shipped on `master` in four commits (`d81172f` plan → `e7c34fe` fonts →
+`c3d96a3` design CSS → `7a8c1c0` file:// fix). `app.js` untouched; 66/66 tests
+green; no behavior change.
+
+**Key deviation from the written spec (necessary):** self-hosted `.woff2`
+referenced via `@font-face url()` are **CORS-blocked under `file://`** in Chrome
+(null origin), which broke fonts on the app's primary run mode (double-click).
+Resolved by inlining the latin woff2 as **base64 data URIs** in `styles.css` —
+no fetch, no CORS. The separate `.woff2` files were dropped; OFL license text kept.
+
+**Verified live (chrome-devtools, `file://`):**
+- `document.fonts.status === "loaded"`; Fraunces + IBM Plex Mono `.check()` true;
+  computed families correct; body bg `#f1ebdc`.
+- Console clean (no CORS/errors).
+- Emulated **Offline** reload → fonts still `loaded`, 3 cards render, **zero**
+  external network requests (only local `file://` + inline base64).
+- Desktop `row` → mobile `380px` `column`: fluid hero sizing, **no horizontal overflow**.
+- `prefers-reduced-motion`: rise animation gated behind `no-preference`; reduce
+  override → every element `opacity:1`, `transform:none`, `animationName:none`.
+- Reroll re-triggers the `pa-rise` card entrance (pure CSS, no JS change);
+  keyboard `:focus-visible` shows the `2px` accent ring.
