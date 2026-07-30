@@ -7,7 +7,34 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="pa"><h1 class="pa-title">Pocket Architect</h1></main>
+  <main class="pa">
+    <h1 class="pa-title">Pocket Architect</h1>
+
+    <div class="skill" role="group" aria-label="Skill level">
+      <button class="skill-btn" data-skill="beginner" type="button">Beginner</button>
+      <button class="skill-btn" data-skill="intermediate" type="button">Intermediate</button>
+      <button class="skill-btn" data-skill="advanced" type="button">Advanced</button>
+    </div>
+
+    <section class="cards" id="cards" aria-live="polite"></section>
+
+    <div class="timer">
+      <div class="timer-presets">
+        <button class="preset-btn" data-minutes="15" type="button">15</button>
+        <button class="preset-btn" data-minutes="30" type="button">30</button>
+        <button class="preset-btn" data-minutes="45" type="button">45</button>
+        <button class="preset-btn" data-minutes="0" type="button">Free draw</button>
+      </div>
+      <div class="timer-display" id="timer-display">15:00</div>
+      <div class="timer-controls">
+        <button id="timer-start" type="button">Start</button>
+        <button id="timer-reset" type="button">Reset</button>
+      </div>
+    </div>
+
+    <button class="reroll" id="reroll" type="button">Reroll</button>
+  </main>
+
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
