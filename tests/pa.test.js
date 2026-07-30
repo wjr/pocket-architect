@@ -73,6 +73,16 @@ function runAllTests(PA, DATA) {
     [{ label: 'Shed', difficulty: 'easy' }]);
   eq('unknown category yields empty pool', PA.eligiblePool('nosuch', 'advanced', {}, FIXTURE), []);
 
+  // --- eligiblePool escalation: fall back to harder items when a skill tier is empty (I-2) ---
+  const ESC = {
+    building: [{ label: 'Cathedral', difficulty: 'hard' }], // no easy/medium entries
+    perspective: [{ label: 'Elevation', difficulty: 'easy' }, { label: 'Two-point', difficulty: 'medium' }]
+  };
+  eq('beginner escalates to harder items when no easy entries',
+    PA.eligiblePool('building', 'beginner', {}, ESC), [{ label: 'Cathedral', difficulty: 'hard' }]);
+  eq('beginner stays easy when easy entries exist (unchanged)',
+    PA.eligiblePool('perspective', 'beginner', {}, ESC), [{ label: 'Elevation', difficulty: 'easy' }]);
+
   // --- rollOne ---
   const seq = (function () { let i = 0; return function () { return (i++ % 10) / 10; }; })();
   eq('rollOne picks index 0 with rng()=0', PA.rollOne([{ label: 'A' }, { label: 'B' }], function () { return 0; }), { label: 'A' });

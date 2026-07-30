@@ -37,9 +37,12 @@ const PA = {
   },
 
   eligiblePool(category, skill, history, data) {
-    const allowed = (data[category] || []).filter(
+    let allowed = (data[category] || []).filter(
       (e) => PA.allowedDifficulties(skill).indexOf(e.difficulty) !== -1
     );
+    // Robustness: if a skill level has zero entries, escalate to the whole
+    // category (harder items) so the pool stays non-empty when data has any.
+    if (allowed.length === 0) allowed = data[category] || [];
     const recent = new Set((history && history[category]) || []);
     const filtered = allowed.filter((e) => !recent.has(e.label));
     return filtered.length >= 1 ? filtered : allowed;
