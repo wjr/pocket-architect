@@ -55,6 +55,41 @@ const PA = {
     const prev = ((history[category] || []).filter((l) => l !== label));
     history[category] = [label].concat(prev).slice(0, limit);
     return history;
+  },
+
+  makeStorage(backing) {
+    let store;
+    if (backing) {
+      store = backing;
+    } else {
+      try { store = (typeof localStorage !== 'undefined') ? localStorage : new Map(); }
+      catch (e) { store = new Map(); }
+    }
+    const isMap = (store instanceof Map);
+    function readRaw(key) {
+      return isMap ? store.get(key) : store.getItem(key);
+    }
+    function writeRaw(key, raw) {
+      if (isMap) store.set(key, raw); else store.setItem(key, raw);
+    }
+    return {
+      get(key, fallback) {
+        try {
+          const raw = readRaw(key);
+          if (raw === undefined || raw === null) return fallback;
+          return JSON.parse(raw);
+        } catch (e) { return fallback; }
+      },
+      set(key, value) {
+        try { writeRaw(key, JSON.stringify(value)); } catch (e) { /* ignore */ }
+      },
+      has(key) {
+        try {
+          const raw = readRaw(key);
+          return raw !== undefined && raw !== null;
+        } catch (e) { return false; }
+      }
+    };
   }
 };
 

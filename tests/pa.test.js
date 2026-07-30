@@ -122,6 +122,26 @@ function runAllTests(PA, DATA) {
   const second = PA.rollAll('advanced', hist, small, function () { return 0; }).building.label;
   check('anti-repeat avoids the last label', second !== first);
 
+  // --- storage (with a fake Map backing) ---
+  const fake = new Map();
+  const s = PA.makeStorage(fake);
+  check('has is false before set', s.has('x') === false);
+  s.set('x', { skill: 'advanced' });
+  check('has is true after set', s.has('x') === true);
+  eq('get returns parsed value', s.get('x'), { skill: 'advanced' });
+  eq('get falls back when missing', s.get('nope', 'def'), 'def');
+
+  // a backing that throws on setItem must not crash set()
+  const broken = {
+    getItem() { throw new Error('blocked'); },
+    setItem() { throw new Error('blocked'); }
+  };
+  const sb = PA.makeStorage(broken);
+  let threw = false;
+  try { sb.set('k', 1); sb.has('k'); eq('broken get returns fallback', sb.get('k', 'fb'), 'fb'); }
+  catch (e) { threw = true; }
+  check('storage never throws on blocked backing', threw === false);
+
   return results;
 }
 
