@@ -94,6 +94,34 @@ function runAllTests(PA, DATA) {
   }
   check('intermediate never rolls hard against real data', realViolation === false);
 
+  // --- history / anti-repeat ---
+  const h0 = PA.emptyHistory();
+  eq('emptyHistory shape', h0, { building: [], placement: [], perspective: [] });
+
+  const h1 = PA.pushHistory(PA.emptyHistory(), 'building', 'Shed', 6);
+  eq('push adds label to front', h1.building, ['Shed']);
+
+  const h2 = PA.pushHistory(h1, 'building', 'Library', 6);
+  eq('newest stays in front', h2.building, ['Library', 'Shed']);
+
+  const h3 = PA.pushHistory(h2, 'building', 'Shed', 6);
+  eq('duplicate moved to front, no repeats', h3.building, ['Shed', 'Library']);
+
+  let h = PA.emptyHistory();
+  for (let i = 0; i < 10; i++) h = PA.pushHistory(h, 'building', 'L' + i, 6);
+  eq('history trimmed to limit', h.building.length, 6);
+  eq('history keeps newest six', h.building, ['L9', 'L8', 'L7', 'L6', 'L5', 'L4']);
+
+  // integration: rolling and recording avoids the last roll while possible
+  const small = { building: [
+    { label: 'A', difficulty: 'easy' }, { label: 'B', difficulty: 'easy' }
+  ], placement: [], perspective: [] };
+  let hist = PA.emptyHistory();
+  const first = PA.rollAll('advanced', hist, small, function () { return 0; }).building.label;
+  hist = PA.pushHistory(hist, 'building', first, 6);
+  const second = PA.rollAll('advanced', hist, small, function () { return 0; }).building.label;
+  check('anti-repeat avoids the last label', second !== first);
+
   return results;
 }
 

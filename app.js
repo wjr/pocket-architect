@@ -45,6 +45,16 @@ const PA = {
       out[cat] = PA.rollOne(PA.eligiblePool(cat, skill, history, data), rng);
     }
     return out;
+  },
+
+  emptyHistory() {
+    return { building: [], placement: [], perspective: [] };
+  },
+
+  pushHistory(history, category, label, limit) {
+    const prev = ((history[category] || []).filter((l) => l !== label));
+    history[category] = [label].concat(prev).slice(0, limit);
+    return history;
   }
 };
 
