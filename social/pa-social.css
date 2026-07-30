@@ -1,0 +1,234 @@
+/* =========================================================================
+   Pocket Architect — social image styles
+   "Vellum drafting sheet" system, lifted verbatim from the app (styles.css)
+   so share graphics read as part of the practice, not as a generic widget.
+
+   Tokens, paper, grid, grain and type match ../styles.css exactly.
+   Fonts live in pa-fonts.css (self-hosted, offline, identical to the app).
+   ========================================================================= */
+
+:root {
+  --paper: #f1ebdc;
+  --card: #fbf7ee;
+  --ink: #17140d;
+  --ink-soft: #5c544a;
+  --accent: #1f4f8f;            /* blueprint blue */
+  --rule: rgba(23, 20, 13, 0.14);
+  --grid-minor: rgba(31, 79, 143, 0.045);
+  --grid-major: rgba(31, 79, 143, 0.085);
+
+  --font-serif: 'Fraunces', Georgia, "Times New Roman", serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+  background-size: 18px 18px, 18px 18px, 90px 90px, 90px 90px;
+  background-position: -1px -1px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* ---- page sizes (exact pixel canvases) ---- */
+.page-og   { width: 1200px; height: 630px; }
+.page-card { width: 1200px; height: 675px; }
+.page-sq   { width: 1080px; height: 1080px; }
+
+/* ---- Paper grain ---- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+/* ---- Paper vignette for sheet depth ---- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 56%, rgba(23, 20, 13, 0.05) 100%);
+}
+
+/* ---- The drawing-sheet margin frame ---- */
+.sheet {
+  position: absolute;
+  inset: 34px;
+  z-index: 1;
+  border: 1px solid var(--rule);
+}
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(31, 79, 143, 0.10);
+}
+/* corner registration ticks */
+.tick {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tick::before, .tick::after {
+  content: "";
+  position: absolute;
+  background: var(--accent);
+}
+.tick::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-0.5px); }
+.tick::after  { top: 50%; left: 0; height: 1px; width: 100%;  transform: translateY(-0.5px); }
+.tick.tl { top: 27px;    left: 27px; }
+.tick.tr { top: 27px;    right: 27px; }
+.tick.bl { bottom: 27px; left: 27px; }
+.tick.br { bottom: 27px; right: 27px; }
+
+/* ---- Drafting title block (bottom-right) ---- */
+.title-block {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 3;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  background: var(--card);
+  padding: 12px 16px 11px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  min-width: 188px;
+}
+.title-block .tb-name { color: var(--ink); font-weight: 600; }
+.title-block .tb-sub  { color: var(--ink-soft); font-size: 9.5px; letter-spacing: 0.16em; }
+.title-block .tb-meta { color: var(--accent); margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--rule); font-size: 9.5px; letter-spacing: 0.16em; }
+
+/* ---- North arrow (top-right drafting symbol) ---- */
+.north {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  color: var(--accent);
+}
+
+/* ---- Content stage ---- */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 86px 96px;
+}
+
+/* ---- Wordmark + tagline ---- */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+.wordmark {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-optical-sizing: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  line-height: 1.02;
+}
+.tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+.lede {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.url {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---- Constraint cards (same treatment as the app) ---- */
+.cards { display: flex; flex-direction: column; gap: 14px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  padding: 18px 22px;
+}
+.card-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.card-value {
+  margin: 6px 0 6px;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.card-tip {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+/* ---- Slide pips (carousel) ---- */
+.pips {
+  position: absolute;
+  left: 96px;
+  bottom: 58px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+.pip { width: 26px; height: 3px; background: var(--rule); }
+.pip.on { background: var(--accent); }
