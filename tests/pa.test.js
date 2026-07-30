@@ -71,6 +71,29 @@ function runAllTests(PA, DATA) {
   }
   check('beginner never rolls non-easy over 200 runs', violation === false);
 
+  // --- data.js integrity (uses the real DATA passed in) ---
+  const DIFFICULTIES = PA.DIFFICULTIES; // local alias so the verbatim block below resolves under Node
+  const cats = ['building', 'placement', 'perspective'];
+  for (const cat of cats) {
+    check(cat + ' has entries', (DATA[cat] || []).length > 0);
+    check(cat + ' all entries well-formed',
+      (DATA[cat] || []).every((e) => PA.isWellFormed(e)));
+    for (const diff of DIFFICULTIES) {
+      check(cat + ' has at least one ' + diff,
+        (DATA[cat] || []).some((e) => e.difficulty === diff));
+    }
+  }
+  check('perspective has exactly 12 entries', DATA.perspective.length === 12);
+  // Difficulty guarantee against real data, all skills:
+  let realViolation = false;
+  for (let i = 0; i < 300; i++) {
+    const r = PA.rollAll('intermediate', {}, DATA);
+    for (const cat of cats) {
+      if (r[cat] && r[cat].difficulty === 'hard') realViolation = true;
+    }
+  }
+  check('intermediate never rolls hard against real data', realViolation === false);
+
   return results;
 }
 
