@@ -111,7 +111,85 @@ const PA = {
 if (typeof window !== 'undefined') window.PA = PA;
 if (typeof module !== 'undefined' && module.exports) module.exports = PA;
 
-// Browser-only wiring (added in later tasks). Guarded so Node require() never touches the DOM.
 if (typeof document !== 'undefined') {
-  // document.addEventListener('DOMContentLoaded', init); // added in Task 8
+  document.addEventListener('DOMContentLoaded', init);
+}
+
+function init() {
+  const storage = PA.makeStorage();
+  const CATS = ['building', 'perspective', 'placement'];
+  const LABELS = { building: 'Building', perspective: 'Perspective', placement: 'Placement' };
+
+  const state = {
+    skill: PA.SKILL_LEVELS.indexOf(storage.get('pa.skill', 'beginner')) !== -1
+      ? storage.get('pa.skill', 'beginner') : 'beginner',
+    history: PA.emptyHistory(),
+    roll: null
+  };
+  // Restore history defensively; replace with empty if shape is wrong.
+  const savedHistory = storage.get('pa.history', null);
+  if (savedHistory && savedHistory.building && savedHistory.placement && savedHistory.perspective) {
+    state.history = savedHistory;
+  }
+
+  const cardsEl = document.getElementById('cards');
+  const rerollBtn = document.getElementById('reroll');
+  const skillBtns = Array.prototype.slice.call(document.querySelectorAll('.skill-btn'));
+
+  function persist() {
+    storage.set('pa.skill', state.skill);
+    storage.set('pa.history', state.history);
+  }
+
+  function doRoll() {
+    state.roll = PA.rollAll(state.skill, state.history, window.DATA);
+    for (const cat of CATS) {
+      if (state.roll[cat]) {
+        PA.pushHistory(state.history, cat, state.roll[cat].label, ANTI_REPEAT_LIMIT);
+      }
+    }
+    persist();
+    render();
+  }
+
+  function render() {
+    cardsEl.innerHTML = '';
+    for (const cat of CATS) {
+      const entry = state.roll && state.roll[cat];
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      const lab = document.createElement('div');
+      lab.className = 'card-label';
+      lab.textContent = LABELS[cat];
+      card.appendChild(lab);
+
+      const val = document.createElement('div');
+      val.className = 'card-value';
+      val.textContent = entry ? entry.label : '—';
+      card.appendChild(val);
+
+      if (entry && entry.tip) {
+        const tip = document.createElement('div');
+        tip.className = 'card-tip';
+        tip.textContent = '“' + entry.tip + '”';
+        card.appendChild(tip);
+      }
+      cardsEl.appendChild(card);
+    }
+    for (const btn of skillBtns) {
+      btn.classList.toggle('active', btn.dataset.skill === state.skill);
+    }
+  }
+
+  for (const btn of skillBtns) {
+    btn.addEventListener('click', function () {
+      state.skill = btn.dataset.skill;
+      persist();
+      doRoll(); // auto-reroll so the prompt matches the new level immediately
+    });
+  }
+  rerollBtn.addEventListener('click', doRoll);
+
+  doRoll(); // auto-roll on load — never show a blank screen
 }
