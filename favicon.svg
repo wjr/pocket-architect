@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Pocket Architect</title>
+  <rect width="64" height="64" fill="#f1ebdc"/>
+  <path d="M10 27 32 10l22 17v27H10Z" fill="none" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M25 54V35h14v19" fill="none" stroke="#111" stroke-width="4"/>
+</svg>
