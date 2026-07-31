@@ -21,7 +21,8 @@ const checks = [
   ['has all timer presets', ['15', '30', '45', '0'].every((m) => html.includes('data-minutes="' + m + '"'))],
   ['uses raw utility styling', css.includes('.simple-app') && css.includes('background: var(--simple-paper)')],
   ['supports visual reveal overlay', html.includes('id="cards"') && css.includes('.visual-preview') && imageMap.includes('PA_IMAGE_MAP')],
-  ['keeps visual inside card bounds', css.includes('height: 190px') && css.includes('overflow: hidden') && css.includes('object-fit: contain')],
+  ['keeps visual inside card bounds', css.includes('overflow: hidden') && css.includes('object-fit: contain') && !css.includes('\n  height: 190px;')],
+  ['provides an in-overlay hide control', css.includes('.visual-close')],
   ['maps every data constraint to a WebP asset', Object.values(buildImageMap(DATA)).every((category) => Object.values(category).every((asset) => asset.endsWith('.webp') && fs.existsSync(path.join(root, asset))))],
   ['does not include the long SEO content layer', !html.includes('seo-content')]
 ];

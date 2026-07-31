@@ -209,12 +209,23 @@ function init() {
         image.loading = 'lazy';
         visual.appendChild(image);
 
+        const close = document.createElement('button');
+        close.className = 'visual-close';
+        close.type = 'button';
+        close.textContent = 'Hide visual';
+        visual.appendChild(close);
+
+        function setVisual(revealed) {
+          visual.hidden = !revealed;
+          reveal.textContent = revealed ? 'Hide visual' : 'Reveal visual';
+          reveal.setAttribute('aria-expanded', String(revealed));
+          if (!revealed) reveal.focus();
+        }
+
         reveal.addEventListener('click', function () {
-          const isRevealed = !visual.hidden;
-          visual.hidden = isRevealed;
-          reveal.textContent = isRevealed ? 'Reveal visual' : 'Hide visual';
-          reveal.setAttribute('aria-expanded', String(!isRevealed));
+          setVisual(true);
         });
+        close.addEventListener('click', function () { setVisual(false); });
         card.appendChild(reveal);
         card.appendChild(visual);
       }

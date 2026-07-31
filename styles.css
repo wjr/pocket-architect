@@ -328,6 +328,19 @@ body::after {
   object-fit: contain;
 }
 
+.visual-close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  padding: 3px 6px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
 /* ---- Timer ---- */
 .timer {
   display: flex;
