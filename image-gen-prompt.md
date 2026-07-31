@@ -82,67 +82,67 @@ Create a square black-and-white visual cue for a **Grain silo complex**. Show a 
 
 ### 17 — Flat open field
 
-Create a square black-and-white visual cue for **Flat open field** placement. Show a generic small building block resting on one long, perfectly straight ground line with almost no surrounding marks. Use sparse black hand-drawn architectural ink on white, centered with abundant empty space. The relationship between the isolated building and the flat horizon should be the only idea.
+Create a square black-and-white visual cue for **Flat open field** placement. Show one long, perfectly straight ground line with almost no surrounding marks and a tiny neutral site marker only if needed to establish scale. Do not draw a building, facade, roof, door, or building type. Use sparse black hand-drawn architectural ink on white, centered with abundant empty space; the flat horizon should be the only idea.
 
 ### 18 — Suburban cul-de-sac
 
-Create a square black-and-white visual cue for **Suburban cul-de-sac** placement. Show a simple building block at the end of a curved dead-end street, with only two or three short driveway or curb lines to establish the setting. Use minimal black architectural ink on white, centered with generous empty space. Avoid houses, cars, people, and a detailed neighborhood.
+Create a square black-and-white visual cue for **Suburban cul-de-sac** placement. Show a curved dead-end street with only two or three short driveway or curb lines and an empty lot marker at its end. Do not draw a building, house, facade, roof, door, cars, people, or a detailed neighborhood. Use minimal black architectural ink on white, centered with generous empty space.
 
 ### 19 — Wooded clearing
 
-Create a square black-and-white visual cue for **Wooded clearing** placement. Show one simple building block surrounded by three or four tall, widely spaced tree trunks, leaving a clear open gap around the building. Use sparse black ink lines on white with generous negative space. Keep the trees as simple vertical marks, not a forest illustration.
+Create a square black-and-white visual cue for **Wooded clearing** placement. Show three or four tall, widely spaced tree trunks leaving a clear open gap as the site. Do not draw a building; use only a tiny neutral ground marker if the clearing needs an anchor. Use sparse black ink lines on white with generous negative space. Keep the trees as simple vertical marks, not a forest illustration.
 
 ### 20 — Quiet residential street
 
-Create a square black-and-white visual cue for **Quiet residential street** placement. Show one simple building set along a straight street edge, with two low neighboring facade silhouettes behind it to establish scale. Use a few black architectural ink lines on white, centered and sparse. Do not draw cars, people, signs, or a detailed neighborhood; show only the calm street relationship.
+Create a square black-and-white visual cue for **Quiet residential street** placement. Show a straight street edge with two low, abstract neighboring mass silhouettes behind an empty site gap. Do not draw a building, facade detail, roof, door, cars, people, signs, or a detailed neighborhood. Use a few black architectural ink lines on white, centered and sparse; show only the calm street relationship.
 
 ### 21 — Corner lot
 
-Create a square black-and-white visual cue for **Corner lot** placement. Show one simple building block meeting two straight, perpendicular street or ground edges. Use only the building, the two intersecting edges, and a small amount of open space. Render it as a centered black architectural ink sketch on white, with the two public fronts clearly readable and no streetscape detail.
+Create a square black-and-white visual cue for **Corner lot** placement. Show two straight, perpendicular street or ground edges meeting around an empty corner site. Use only the two intersecting edges and a tiny neutral lot marker if needed; do not draw a building, facade, roof, door, or streetscape detail. Render it as a centered black architectural ink sketch on white with generous empty space.
 
 ### 22 — Dense urban alley
 
-Create a square black-and-white visual cue for **Dense urban alley** placement. Show a narrow building volume squeezed between two tall, close parallel wall edges, leaving only a thin strip of sky above. Use sparse black architectural ink on white, centered with generous empty space beyond the alley marks. Avoid windows, graffiti, people, and detailed city texture.
+Create a square black-and-white visual cue for **Dense urban alley** placement. Show two tall, close parallel wall edges forming a narrow alley and leaving only a thin strip of sky above. Do not draw a building inside the alley, windows, graffiti, people, or detailed city texture. Use sparse black architectural ink on white, centered with generous empty space beyond the alley marks.
 
 ### 23 — Rooftop garden
 
-Create a square black-and-white visual cue for **Rooftop garden** placement. Show a simple small pavilion or building block sitting on a flat roof slab, with only two or three simplified planter or plant marks around it. Use black hand-drawn architectural lines on white, centered and spacious. Communicate that the roof is the site; do not draw a full skyline or garden landscape.
+Create a square black-and-white visual cue for **Rooftop garden** placement. Show a flat roof slab with a simple parapet and two or three simplified planter or plant marks. Do not draw a pavilion, building, facade, roof form, skyline, or garden landscape; the roof plane is the site. Use black hand-drawn architectural lines on white, centered and spacious.
 
 ### 24 — Riverbank
 
-Create a square black-and-white visual cue for **Riverbank** placement. Show a simple building block beside one clear, gently irregular water edge, with a small gap or bank between building and water. Use minimal black ink lines on white, centered with generous negative space. Avoid reflections, boats, vegetation, and landscape detail; preserve the building-to-water relationship.
+Create a square black-and-white visual cue for **Riverbank** placement. Show one clear, gently irregular water edge with a small empty bank or neutral site marker beside it. Do not draw a building, facade, roof, door, reflections, boats, vegetation, or landscape detail. Use minimal black ink lines on white, centered with generous negative space; preserve the site-to-water relationship.
 
 ### 25 — Desert plain
 
-Create a square black-and-white visual cue for **Desert plain** placement. Show one stark simple building block on a long flat horizon, with one or two sparse ground marks suggesting an empty arid expanse. Use confident black architectural ink on white and a large amount of empty space. Do not add dunes, cacti, dramatic sun, or rendered atmosphere.
+Create a square black-and-white visual cue for **Desert plain** placement. Show a stark long flat horizon with one or two sparse ground marks suggesting an empty arid expanse and a tiny neutral site marker only if needed. Do not draw a building, dunes, cacti, dramatic sun, or rendered atmosphere. Use confident black architectural ink on white and a large amount of empty space.
 
 ### 26 — Reclaimed marsh
 
-Create a square black-and-white visual cue for **Reclaimed marsh** placement. Show a simple building raised on a few slender piers above a low water line, with two or three reed marks below. Use sparse black architectural ink on white, centered with generous empty space. Keep the marsh legible through elevation and water, not through a detailed wetland scene.
+Create a square black-and-white visual cue for **Reclaimed marsh** placement. Show a low water line, a few slender neutral site piers or a simple platform above it, and two or three reed marks below. Do not draw a building, facade, roof, or detailed wetland scene. Use sparse black architectural ink on white, centered with generous empty space; keep the marsh legible through elevation and water.
 
 ### 27 — Town square
 
-Create a square black-and-white visual cue for **Town square** placement. Show one simple building facade framing one side of an open square, with two short surrounding facade edges forming a public void. Use minimal black architectural ink on white, centered and spacious. The empty square should be more important than facade detail; avoid crowds, signage, and a complete townscape.
+Create a square black-and-white visual cue for **Town square** placement. Show an open public void framed by two or three short abstract mass edges, with no facade detail. Do not draw a building, doors, roofs, crowds, signage, or a complete townscape. Use minimal black architectural ink on white, centered and spacious; the empty square is the subject.
 
 ### 28 — Bridge over a road
 
-Create a square black-and-white visual cue for **Bridge over a road** placement. Show one simple building or enclosed bridge volume spanning above a single road line, with a clear gap for movement underneath. Use a few black architectural ink strokes on white, centered with generous empty space. Avoid cars, road markings, and structural engineering detail; make the vertical relationship immediate.
+Create a square black-and-white visual cue for **Bridge over a road** placement. Show a simple neutral horizontal span crossing above one road line, with a clear gap for movement underneath. Do not draw a building, enclosed volume, facade, cars, road markings, or structural engineering detail. Use a few black architectural ink strokes on white, centered with generous empty space; make the over-and-under relationship immediate.
 
 ### 29 — Steep cliffside
 
-Create a square black-and-white visual cue for **Steep cliffside** placement. Show a simple building block cantilevering over a strong diagonal cliff edge, with a small amount of exposed rock contour beneath. Use sparse black architectural ink on white, centered with generous empty space. Make the dramatic drop and building-to-edge relationship clear without drawing a landscape or realistic geology.
+Create a square black-and-white visual cue for **Steep cliffside** placement. Show a strong diagonal cliff edge with a small neutral platform or site marker cantilevering over the drop and a minimal exposed rock contour beneath. Do not draw a building, facade, roof, door, landscape, or realistic geology. Use sparse black architectural ink on white, centered with generous empty space; make the dramatic drop clear.
 
 ### 30 — Floating on water
 
-Create a square black-and-white visual cue for **Floating on water** placement. Show one simple building block visibly separated from a calm horizontal water surface, with one restrained reflection line below. Use minimal black hand-drawn architectural ink on white, centered with generous empty space. Do not add boats, waves, scenery, or realistic reflections; the separation from ground is the concept.
+Create a square black-and-white visual cue for **Floating on water** placement. Show a small neutral platform visibly separated from a calm horizontal water surface, with one restrained reflection line below. Do not draw a building, facade, roof, boats, waves, scenery, or realistic reflections; the separation from ground is the concept. Use minimal black hand-drawn architectural ink on white, centered with generous empty space.
 
 ### 31 — Cut into a hillside
 
-Create a square black-and-white visual cue for **Cut into a hillside** placement. Show a simple building volume partly buried in one diagonal land section, with a clear retaining edge and only a small exposed facade. Use sparse black architectural ink on white, centered with generous empty space. Communicate the cut-and-embedded relationship without a detailed terrain or construction drawing.
+Create a square black-and-white visual cue for **Cut into a hillside** placement. Show one diagonal land section with a clear retaining edge and a small neutral site void or marker partly embedded in the cut. Do not draw a building, facade, roof, door, or detailed terrain/construction drawing. Use sparse black architectural ink on white, centered with generous empty space; communicate only the cut-and-embedded relationship.
 
 ### 32 — Dense city intersection
 
-Create a square black-and-white visual cue for **Dense city intersection** placement. Show one simple building mass at the meeting point of two crossing street edges, with three or four tall surrounding corner silhouettes. Use minimal black architectural ink on white, centered and spacious. Avoid cars, signs, repeated windows, and a detailed skyline; show only the compressed intersection context.
+Create a square black-and-white visual cue for **Dense city intersection** placement. Show two crossing street edges with three or four tall abstract surrounding corner silhouettes and an empty central site gap. Do not draw a building in the gap, facade detail, cars, signs, repeated windows, or a detailed skyline. Use minimal black architectural ink on white, centered and spacious; show only the compressed intersection context.
 
 ## Perspective prompts
 
@@ -199,6 +199,6 @@ Create a square black-and-white visual cue for the **Sectional perspective** per
 - Exactly 44 prompts exist: 16 building, 16 placement, and 12 perspective.
 - Every prompt names exactly one source constraint value.
 - Every image is specified as square, black-and-white, centered, sparse, and unframed.
-- Building prompts use simple object sketches; placement prompts show a building/site relationship; perspective prompts show a drawing system.
+- Building prompts use simple object sketches; placement prompts show a site-only condition; perspective prompts show a drawing system.
 - No prompt asks for a finished drawing, photorealism, color, text, labels, or decorative detail.
 - Each prompt is distinct enough to generate a recognizable visual cue for its value while sharing the same system.

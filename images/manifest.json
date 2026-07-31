@@ -20,12 +20,12 @@
     "status": "generated",
     "review": "pending",
     "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-flat-open-field.png",
-    "fingerprint": "b2dd326d07a6de25517818cc6ae1f13390e4efe093e34c0236ef43ac44171919",
+    "fingerprint": "644b21c0b5e0bd65f6820da912b212a6b920fd71d64a54d6acdce33268da3669",
     "model": "gpt-image-2",
     "quality": "low",
     "size": "1024x1024",
     "output_format": "png",
-    "created_at": "2026-07-31T09:54:07Z"
+    "created_at": "2026-07-31T10:04:53Z"
   },
   "perspective-elevation": {
     "id": "perspective-elevation",
@@ -48,12 +48,12 @@
     "status": "generated",
     "review": "pending",
     "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-wooded-clearing.png",
-    "fingerprint": "47d59dc86b427e947b41fa2466899845b11c4b4f7f14074837046b71bfd5f499",
+    "fingerprint": "ad87973e6cc1816d4f9272e1d5e99ce21939bcf04994de880caf5f92d8cb2b9a",
     "model": "gpt-image-2",
     "quality": "low",
     "size": "1024x1024",
     "output_format": "png",
-    "created_at": "2026-07-31T09:56:12Z"
+    "created_at": "2026-07-31T10:05:11Z"
   },
   "placement-riverbank": {
     "id": "placement-riverbank",
@@ -62,12 +62,12 @@
     "status": "generated",
     "review": "pending",
     "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-riverbank.png",
-    "fingerprint": "4fadfcf59c0ddf4d833124d9eb430af0bae2515aeb5e496e9f8aa553063caf47",
+    "fingerprint": "e3e467a509d58ba4c0bc1acc1f08d7042238db382cacec7759f734e1ab6f2841",
     "model": "gpt-image-2",
     "quality": "low",
     "size": "1024x1024",
     "output_format": "png",
-    "created_at": "2026-07-31T09:56:29Z"
+    "created_at": "2026-07-31T10:05:26Z"
   },
   "placement-steep-cliffside": {
     "id": "placement-steep-cliffside",
@@ -76,11 +76,39 @@
     "status": "generated",
     "review": "pending",
     "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-steep-cliffside.png",
-    "fingerprint": "83b9142d23a274ec4e617fcdeea7f94bf78f42b5ceae31c0c6472c049a49bf1f",
+    "fingerprint": "4e60285dd99e8e877733a3c43e052b8b4718c88079c66c39033647d10eb6f0a3",
     "model": "gpt-image-2",
     "quality": "low",
     "size": "1024x1024",
     "output_format": "png",
-    "created_at": "2026-07-31T09:56:47Z"
+    "created_at": "2026-07-31T10:05:45Z"
+  },
+  "placement-floating-on-water": {
+    "id": "placement-floating-on-water",
+    "category": "placement",
+    "value": "Floating on water",
+    "status": "generated",
+    "review": "pending",
+    "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-floating-on-water.png",
+    "fingerprint": "9b5d96060906f41376292d19932d4226b2ccd7f93ae4184c37d056584d0694be",
+    "model": "gpt-image-2",
+    "quality": "low",
+    "size": "1024x1024",
+    "output_format": "png",
+    "created_at": "2026-07-31T10:06:00Z"
+  },
+  "placement-dense-city-intersection": {
+    "id": "placement-dense-city-intersection",
+    "category": "placement",
+    "value": "Dense city intersection",
+    "status": "generated",
+    "review": "pending",
+    "path": "/Users/wesley/Desktop/PocketArchitect/images/constraints/placement/placement-dense-city-intersection.png",
+    "fingerprint": "350caae5c588ead19032ccb3e4bd2f03bbfa8c3cab6fd8675d6a758609e1e27c",
+    "model": "gpt-image-2",
+    "quality": "low",
+    "size": "1024x1024",
+    "output_format": "png",
+    "created_at": "2026-07-31T10:06:21Z"
   }
 }

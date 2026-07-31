@@ -44,7 +44,7 @@ Avoid rooms, furniture, facade ornament, realistic materials, repeated windows, 
 
 ### Placement values
 
-Represent the building plus the one site condition that defines the placement. The building can be a generic simple block; the environment carries the meaning:
+Represent only the site condition that defines the placement. Do not draw a recognizable building, facade, roof, door, or building type; the building constraint already supplies that information. Use a neutral marker only when needed to clarify a relationship: a small abstract rectangle, line, platform, or cut edge. The environment carries the meaning:
 
 - Flat open field → one block resting on a straight ground line.
 - Wooded clearing → one block surrounded by three or four tree trunks.
@@ -53,7 +53,7 @@ Represent the building plus the one site condition that defines the placement. T
 - Steep cliffside → one block cantilevered over a strong diagonal drop.
 - Floating on water → one block separated from the water surface with a clear reflection line.
 
-Use only a few environmental marks. Do not turn the image into a landscape illustration. The building and its relationship to the site must remain readable.
+Use only a few environmental marks. Do not turn the image into a landscape illustration. Placement images should function as composable site diagrams: answer “where does it go?” without answering “what is it?”
 
 ### Perspective values
 
