@@ -32,3 +32,10 @@ Append objects to the arrays in `data.js`. Each entry is
 `{ label, difficulty, tip }` where `difficulty` is `"easy"`, `"medium"`, or `"hard"`.
 `tip` is optional. Keep at least one entry of each difficulty per category so every
 skill level can always roll.
+
+## Share graphics
+
+`social/` holds share images (OG, Twitter/X card, Instagram, LinkedIn carousel) drawn
+in the app's drafting style, plus a Puppeteer renderer that turns the templates into
+PNGs. See [`social/README.md`](social/README.md) for the specs, how to re-render them,
+and how to customize.
