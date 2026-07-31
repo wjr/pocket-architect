@@ -23,7 +23,7 @@ Or in a browser: open `test.html`.
 - `index.html` / `styles.css` — markup and the drafting look.
 - `app.js` — engine (pure functions) plus DOM/timer wiring.
 - `data.js` — the constraint lists, tips, and difficulty tags. Add entries here; no other
-  file needs to change.
+file needs to change.
 - `tests/pa.test.js` / `test.html` — the test suite.
 
 ## Adding content
@@ -39,3 +39,18 @@ skill level can always roll.
 in the app's drafting style, plus a Puppeteer renderer that turns the templates into
 PNGs. See [`social/README.md`](social/README.md) for the specs, how to re-render them,
 and how to customize.
+
+## Generate constraint images
+
+The Ruby generator reads the 44 prompts in `image-gen-prompt.json`. It is dry-run by
+default and never makes a paid API call unless `--generate` is supplied.
+
+```sh
+bundle install
+ruby bin/generate_images --pilot --estimate
+ruby bin/generate_images --pilot --generate --yes --max-cost 0.05
+```
+
+Set `OPENAI_API_KEY` before generating. Generated files go under
+`images/constraints/`, with resumable state in `images/manifest.json`. Run the free
+test suite with `ruby -Itest test/image_generator_test.rb`.

@@ -1,0 +1,74 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "optparse"
+require_relative "../lib/pocket_architect/image_generator"
+
+def load_dotenv(path = File.expand_path("../.env", __dir__))
+  return unless File.file?(path)
+
+  File.foreach(path) do |line|
+    key, value = line.strip.split("=", 2)
+    next unless key && value && key.match?(/\A[A-Z_][A-Z0-9_]*\z/)
+
+    ENV[key] ||= value.gsub(/\A['"]|['"]\z/, "")
+  end
+end
+
+load_dotenv
+
+options = { prompt_file: File.expand_path("../image-gen-prompt.json", __dir__),
+            output_dir: File.expand_path("../images/constraints", __dir__),
+            manifest: File.expand_path("../images/manifest.json", __dir__),
+            model: ENV.fetch("OPENAI_IMAGE_MODEL", "gpt-image-2"),
+            quality: ENV.fetch("OPENAI_IMAGE_QUALITY", "low"), size: "1024x1024", output_format: "png", ids: [] }
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/generate_images [options]"
+  opts.on("--estimate", "Print the estimate without generating") { options[:estimate] = true }
+  opts.on("--generate", "Enable paid API calls") { options[:generate] = true }
+  opts.on("--yes", "Skip confirmation (required for automation)") { options[:yes] = true }
+  opts.on("--pilot", "Select one prompt from each category") { options[:pilot] = true }
+  opts.on("--only ID[,ID...]", Array, "Generate specific prompt IDs") { |ids| options[:ids].concat(ids) }
+  opts.on("--category CATEGORY", %w[building placement perspective]) { |value| options[:category] = value }
+  opts.on("--limit N", Integer, "Limit selected prompt count") { |value| options[:limit] = value }
+  opts.on("--quality QUALITY", %w[low medium high]) { |value| options[:quality] = value }
+  opts.on("--max-cost USD", Float, "Refuse if estimate exceeds USD") { |value| options[:max_cost] = value }
+  opts.on("--force", "Regenerate completed entries") { options[:force] = true }
+  opts.on("--prompt-file PATH") { |value| options[:prompt_file] = value }
+  opts.on("--output-dir PATH") { |value| options[:output_dir] = value }
+  opts.on("--manifest PATH") { |value| options[:manifest] = value }
+  opts.on("--model MODEL") { |value| options[:model] = value }
+end
+
+begin
+  parser.parse!
+  library = PocketArchitect::PromptLibrary.new(options[:prompt_file])
+  selected = library.select(ids: options[:ids], category: options[:category], limit: options[:limit], pilot: options[:pilot])
+  estimate = PocketArchitect::CostEstimator.estimate(selected.length, options[:quality])
+  puts "Selected: #{selected.length} image(s)"
+  puts "Quality: #{options[:quality]} | Model: #{options[:model]} | Size: 1024x1024"
+  puts format("Estimated image cost: $%.3f plus input-token costs", estimate)
+  unless options[:generate]
+    puts "Dry run only. Add --generate to make paid API calls."
+    exit 0
+  end
+  unless options[:yes]
+    $stdout.print "Generate these images? Type 'yes' to continue: "
+    exit 1 unless $stdin.gets&.strip == "yes"
+  end
+  require "openai"
+  client = OpenAI::Client.new
+  generator = PocketArchitect::ImageGenerator.new(library: library, client: client, output_dir: options[:output_dir],
+                                                   manifest_path: options[:manifest], model: options[:model], quality: options[:quality])
+  generator.generate(selected, max_cost: options[:max_cost], force: options[:force]).each do |result|
+    puts "#{result[:status] || result["status"]}: #{result[:id] || result["id"]}"
+  end
+rescue PocketArchitect::ConfigurationError, PocketArchitect::BudgetError, PocketArchitect::GenerationError => e
+  warn "Error: #{e.message}"
+  exit 1
+rescue OptionParser::ParseError => e
+  warn e.message
+  warn parser
+  exit 1
+end

@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Keep search and answer-engine crawlers eligible to cite the public site.
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://wjr.github.io/pocket-architect/sitemap.xml

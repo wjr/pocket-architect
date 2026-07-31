@@ -1,0 +1,236 @@
+/* Pocket Architect — simple utility surface.
+   Deliberately plain: fewer visual decisions, fewer distractions. */
+
+:root {
+  --simple-paper: #f7f6f2;
+  --simple-ink: #11110f;
+  --simple-muted: #6d6b64;
+  --simple-rule: #d8d6ce;
+  --simple-accent: #1d4f91;
+  --simple-card: #fffefa;
+  --simple-font: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --simple-serif: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--simple-paper);
+  color: var(--simple-ink);
+}
+
+body {
+  font-family: var(--simple-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+.simple-app {
+  width: min(100% - 40px, 900px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 54px 0 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.simple-header {
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--simple-ink);
+}
+
+.eyebrow,
+.instruction,
+.simple-footer,
+.card-label,
+.skill-btn,
+.preset-btn,
+.timer-controls button {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0 0 28px;
+  color: var(--simple-muted);
+}
+
+.simple-header h1 {
+  max-width: 8ch;
+  margin: 0;
+  font-family: var(--simple-serif);
+  font-size: clamp(3.4rem, 10vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.86;
+}
+
+.instruction {
+  margin: 24px 0 0;
+  color: var(--simple-muted);
+}
+
+.workbench {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 0 34px;
+}
+
+.skill {
+  display: flex;
+  gap: 6px;
+}
+
+.skill-btn,
+.preset-btn,
+.timer-controls button {
+  padding: 10px 12px;
+  border: 1px solid var(--simple-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--simple-ink);
+  cursor: pointer;
+}
+
+.skill-btn { flex: 1; }
+
+.skill-btn:hover,
+.preset-btn:hover,
+.timer-controls button:hover:not(:disabled) {
+  border-color: var(--simple-ink);
+}
+
+.skill-btn.active {
+  border-color: var(--simple-ink);
+  background: var(--simple-ink);
+  color: var(--simple-paper);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.card {
+  min-height: 190px;
+  padding: 17px;
+  border: 1px solid var(--simple-ink);
+  background: var(--simple-card);
+}
+
+.card-label {
+  color: var(--simple-muted);
+}
+
+.card-value {
+  margin: 38px 0 12px;
+  font-family: var(--simple-serif);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.card-tip {
+  max-width: 34ch;
+  color: var(--simple-muted);
+  font-family: var(--simple-serif);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.session-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+  padding-top: 2px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.timer-presets,
+.timer-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.preset-btn.active {
+  border-color: var(--simple-accent);
+  color: var(--simple-accent);
+}
+
+.timer-display {
+  min-width: 5ch;
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-display.finished { color: var(--simple-accent); }
+
+.timer-controls button:disabled {
+  color: var(--simple-muted);
+  cursor: default;
+  opacity: 0.45;
+}
+
+.reroll {
+  padding: 14px 22px;
+  border: 1px solid var(--simple-ink);
+  border-radius: 0;
+  background: var(--simple-ink);
+  color: var(--simple-paper);
+  cursor: pointer;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reroll:hover { background: var(--simple-accent); border-color: var(--simple-accent); }
+
+.simple-footer {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--simple-rule);
+  color: var(--simple-muted);
+}
+
+.skill-btn:focus-visible,
+.preset-btn:focus-visible,
+.timer-controls button:focus-visible,
+.reroll:focus-visible {
+  outline: 2px solid var(--simple-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}
+
+@media (max-width: 680px) {
+  .simple-app { width: min(100% - 28px, 520px); padding-top: 30px; }
+  .cards { grid-template-columns: 1fr; }
+  .card { min-height: 0; }
+  .card-value { margin-top: 22px; }
+  .session-bar { grid-template-columns: 1fr; }
+  .timer { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .reroll { width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .skill-btn { padding: 9px 5px; font-size: 0.62rem; letter-spacing: 0.03em; }
+  .timer-presets { flex-wrap: wrap; }
+  .preset-btn { padding: 8px 9px; font-size: 0.63rem; }
+}

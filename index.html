@@ -7,6 +7,7 @@
   <meta name="description" content="Free random drawing-prompt generator for architectural practice. Get a building type, perspective, and placement to sketch, then start your session.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#f1ebdc">
+  <meta name="author" content="Wesley R.">
 
   <!-- Canonical + Open Graph assume a GitHub Pages deploy at the repo's
        default URL. og:image points at the committed share graphic in social/;
@@ -35,24 +36,80 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Pocket Architect",
-    "description": "Free random drawing-prompt generator for architectural practice. Generates a building type, perspective, and placement to sketch.",
-    "url": "https://wjr.github.io/pocket-architect/",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web browser",
-    "browserRequirements": "Requires JavaScript",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://wjr.github.io/pocket-architect/#app",
+        "name": "Pocket Architect",
+        "description": "Free random drawing-prompt generator for architectural practice. Generates a building type, perspective, and placement to sketch.",
+        "url": "https://wjr.github.io/pocket-architect/",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web browser",
+        "browserRequirements": "Requires JavaScript",
+        "creator": { "@id": "https://wjr.github.io/pocket-architect/#creator" },
+        "dateModified": "2026-07-31",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://wjr.github.io/pocket-architect/#creator",
+        "name": "Wesley R.",
+        "url": "https://github.com/wjr",
+        "sameAs": "https://github.com/wjr"
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to use Pocket Architect for drawing practice",
+        "description": "Generate three architectural drawing constraints, choose a time limit, and sketch the result.",
+        "totalTime": "PT1M",
+        "step": [
+          { "@type": "HowToStep", "name": "Choose a skill level", "text": "Choose beginner, intermediate, or advanced to match the difficulty of the drawing constraints." },
+          { "@type": "HowToStep", "name": "Generate constraints", "text": "Use the building, perspective, and placement cards as the brief for one architectural sketch." },
+          { "@type": "HowToStep", "name": "Set a timer and draw", "text": "Choose a 15, 30, or 45 minute session, or use Free draw, then start sketching." }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an architectural drawing prompt?",
+            "acceptedAnswer": { "@type": "Answer", "text": "An architectural drawing prompt is a small design brief that gives you something specific to sketch. Pocket Architect combines a building type, a technical drawing perspective, and a site placement." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Pocket Architect free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Pocket Architect is a free, local-first browser tool with no account or server required." }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is Pocket Architect for?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It is designed for architecture students, hobbyists, and designers who want a quick, structured drawing exercise without spending time deciding what to draw." }
+          },
+          {
+            "@type": "Question",
+            "name": "What perspectives can I practice?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Prompts include elevations, plans, one-point and two-point perspective, sections, axonometric and isometric drawings, three-point perspective, aerial views, and exploded axons." }
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
 <body>
   <main class="pa">
     <h1 class="pa-title">Pocket Architect</h1>
+
+    <section class="intro" aria-labelledby="intro-heading">
+      <h2 id="intro-heading">Architectural drawing prompts for practice</h2>
+      <p>Pocket Architect is a free random drawing-prompt generator for architecture students, hobbyists, and designers. It gives you a building type, a technical drawing perspective, and a site placement so you can start sketching instead of choosing what to draw.</p>
+      <p class="updated">Last updated <time datetime="2026-07-31">July 31, 2026</time> · Works offline in your browser</p>
+    </section>
 
     <div class="skill" role="group" aria-label="Skill level">
       <button class="skill-btn" data-skill="beginner" type="button">Beginner</button>
@@ -77,6 +134,57 @@
     </div>
 
     <button class="reroll" id="reroll" type="button">Reroll</button>
+
+    <section class="seo-content" aria-labelledby="how-heading">
+      <div class="content-block">
+        <h2 id="how-heading">How to use the drawing prompt generator</h2>
+        <ol>
+          <li><strong>Choose a skill level.</strong> Beginner, intermediate, and advanced levels control the difficulty of the constraints.</li>
+          <li><strong>Generate a brief.</strong> Combine the three cards into one architectural sketch: building, perspective, and placement.</li>
+          <li><strong>Set a timer and draw.</strong> Use a 15, 30, or 45 minute session, or choose Free draw for an open-ended exercise.</li>
+        </ol>
+      </div>
+
+      <div class="content-block" aria-labelledby="examples-heading">
+        <h2 id="examples-heading">Example architectural sketch exercises</h2>
+        <div class="examples">
+          <article class="example">
+            <h3>Beginner exercise</h3>
+            <p>Draw a garden shed in elevation on a flat open field. Focus on proportion, a clear roof pitch, and a clean horizon.</p>
+          </article>
+          <article class="example">
+            <h3>Intermediate exercise</h3>
+            <p>Draw a greenhouse in axonometric view on a riverbank. Show the light frame, glazing, and how the building meets the water.</p>
+          </article>
+          <article class="example">
+            <h3>Advanced exercise</h3>
+            <p>Draw an opera house from a three-point perspective in a dense city intersection. Make the massing and overlapping context readable.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="content-block faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Architectural drawing prompt FAQ</h2>
+        <details>
+          <summary>What is an architectural drawing prompt?</summary>
+          <p>An architectural drawing prompt is a small design brief that gives you something specific to sketch. Pocket Architect combines a building type, a technical drawing perspective, and a site placement.</p>
+        </details>
+        <details>
+          <summary>Is Pocket Architect free?</summary>
+          <p>Yes. Pocket Architect is a free, local-first browser tool with no account or server required.</p>
+        </details>
+        <details>
+          <summary>Who is Pocket Architect for?</summary>
+          <p>It is designed for architecture students, hobbyists, and designers who want a quick, structured drawing exercise without spending time deciding what to draw.</p>
+        </details>
+        <details>
+          <summary>What perspectives can I practice?</summary>
+          <p>Prompts include elevations, plans, one-point and two-point perspective, sections, axonometric and isometric drawings, three-point perspective, aerial views, and exploded axons.</p>
+        </details>
+      </div>
+
+      <p class="credit">Created by <a href="https://github.com/wjr">Wesley R.</a> · <a href="https://github.com/wjr/pocket-architect">Open-source project</a></p>
+    </section>
   </main>
 
   <script src="data.js"></script>
