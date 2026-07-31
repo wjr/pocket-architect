@@ -53,4 +53,6 @@ ruby bin/generate_images --pilot --generate --yes --max-cost 0.05
 
 Set `OPENAI_API_KEY` before generating. Generated files go under
 `images/constraints/`, with resumable state in `images/manifest.json`. Run the free
-test suite with `ruby -Itest test/image_generator_test.rb`.
+test suite with `ruby -Itest test/image_generator_test.rb`. The browser maps each
+`data.js` constraint value to its WebP visual and reveals it inside the existing card
+without changing the card's dimensions.

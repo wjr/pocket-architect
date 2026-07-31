@@ -191,6 +191,34 @@ function init() {
       val.textContent = entry ? entry.label : '—';
       card.appendChild(val);
 
+      if (entry && window.PA_IMAGE_MAP && window.PA_IMAGE_MAP[cat] && window.PA_IMAGE_MAP[cat][entry.label]) {
+        const reveal = document.createElement('button');
+        reveal.className = 'visual-reveal';
+        reveal.type = 'button';
+        reveal.textContent = 'Reveal visual';
+        reveal.setAttribute('aria-expanded', 'false');
+
+        const visual = document.createElement('div');
+        visual.className = 'visual-preview';
+        visual.hidden = true;
+        visual.setAttribute('aria-label', 'Visual cue for ' + entry.label);
+
+        const image = document.createElement('img');
+        image.src = window.PA_IMAGE_MAP[cat][entry.label];
+        image.alt = 'Simple visual cue for ' + entry.label;
+        image.loading = 'lazy';
+        visual.appendChild(image);
+
+        reveal.addEventListener('click', function () {
+          const isRevealed = !visual.hidden;
+          visual.hidden = isRevealed;
+          reveal.textContent = isRevealed ? 'Reveal visual' : 'Hide visual';
+          reveal.setAttribute('aria-expanded', String(!isRevealed));
+        });
+        card.appendChild(reveal);
+        card.appendChild(visual);
+      }
+
       if (entry && entry.tip) {
         const tip = document.createElement('div');
         tip.className = 'card-tip';
