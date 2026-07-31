@@ -8,6 +8,8 @@ level, each with a one-line teaching tip, and draw within them for a timed sessi
 
 Double-click `index.html` (opens under `file://`). Works offline; no server or build.
 
+The public version is available at <https://wjr.github.io/pocket-architect/>.
+
 ## Run the tests
 
 Command line (requires Node):
@@ -53,6 +55,21 @@ ruby bin/generate_images --pilot --generate --yes --max-cost 0.05
 
 Set `OPENAI_API_KEY` before generating. Generated files go under
 `images/constraints/`, with resumable state in `images/manifest.json`. Run the free
-test suite with `ruby -Itest test/image_generator_test.rb`. The browser maps each
+test suite with `bundle exec ruby -Itest test/image_generator_test.rb`. The browser maps each
 `data.js` constraint value to its WebP visual and reveals it inside the existing card
 without changing the card's dimensions.
+
+Generated WebP assets are served by both pages through `image-map.js`. The source PNGs
+remain available for image review and future conversion; the browser uses WebP for
+smaller network payloads.
+
+## Publish to GitHub Pages
+
+GitHub Pages serves the `master` branch from its repository root. After committing
+changes, push the branch with:
+
+```sh
+git push origin master
+```
+
+The published site is then available at the public URL above.
